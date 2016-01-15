@@ -8,9 +8,10 @@ addpath(genpath('../constrained_foopsi'));
 
 switch getenv('computername')
     case 'BKRUNCH'
-        data_root='Q:\data\2photon\reg';
-        data_folder='141221_DM044_2P_DM\run02_blank\';
-        nam = fullfile(data_root,data_folder,'run02_blank_green_reg000001.tif');
+        %data_root='Q:\data\2photon\reg';
+        
+        %data_folder='141221_DM044_2P_DM\run02_blank\'; % many cells
+        data_folder='150122_KS127_2P_KS\run03_sf_tf_V1'; % lot's of processes        
 
         options.req_NumWorkers=8;
         options.nBlocks=64;
