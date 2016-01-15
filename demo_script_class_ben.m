@@ -6,15 +6,12 @@ addpath(genpath('utilities'));
 addpath(genpath('../cvx'));
 addpath(genpath('../constrained_foopsi'));
 
-
-%nam = 'demoMovie.tif';          % insert path to tiff stack here
-data_root='Q:\data\2photon\reg';
-data_folder='141221_DM044_2P_DM\run02_blank\';
-nam = fullfile(data_root,data_folder,'run02_blank_green_reg000001.tif');
-
 switch getenv('computername')
     case 'BKRUNCH'
-        
+        data_root='Q:\data\2photon\reg';
+        data_folder='141221_DM044_2P_DM\run02_blank\';
+        nam = fullfile(data_root,data_folder,'run02_blank_green_reg000001.tif');
+
         options.req_NumWorkers=8;
         options.nBlocks=64;
         options.frame_rate_actual=30;
@@ -41,7 +38,16 @@ switch getenv('computername')
         bin_frames=round(options.frame_rate_actual/options.frame_rate_req)
         dec = stackGroupProject(stack,bin_frames,'sum');
         Y = double(dec);
+    case '' % mac
+        data_root='/Users/benvermaercke/Dropbox (coxlab)/2p-data';
+        exp_name='2015-08-07_AH03';
+        nam=fullfile(data_root,exp_name,'2015-08-07_AH03_004.tif');
+        
+        sframe=1;						% user input: first frame to read (optional, default 1)
+        num2read=2000;					% user input: how many frames to read   (optional, default until the end)
+        Y = bigread2(nam,sframe,num2read);
     otherwise
+        nam = 'demoMovie.tif';          % insert path to tiff stack here
         sframe=1;						% user input: first frame to read (optional, default 1)
         num2read=2000;					% user input: how many frames to read   (optional, default until the end)
         Y = bigread2(nam,sframe,num2read);
